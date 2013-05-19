@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema 
+	xmlns="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://www.futeng.org/string-parser" 
+	xmlns:sns="http://www.futeng.org/string-parser" 
+	elementFormDefault="qualified">
+	
+	<element name="string-parsers">
+		<annotation>
+			<documentation>string parser configuration</documentation>
+		</annotation>
+		<complexType>
+			<annotation>
+				<documentation>src/target string parser configuration</documentation>
+			</annotation>
+			<choice maxOccurs="unbounded">
+				<element ref="global-configurations" maxOccurs="1"></element>
+				<element ref="parser" maxOccurs="unbounded"></element>
+			</choice>
+		</complexType>
+	</element>
+	
+	<element name="global-configurations">
+		<annotation>
+			<documentation>string parser global configurations</documentation>
+		</annotation>
+		<complexType>
+			<attribute name="trim" type="boolean" default="true">
+				<annotation>
+					<documentation>should parse after trims</documentation>
+				</annotation>
+			</attribute>
+		</complexType>
+	</element>
+	
+	<element name="string-parser">
+		<complexType>
+			<sequence>
+				<element ref="parse" maxOccurs="unbounded"></element>
+			</sequence>
+			<attribute name="name" type="string">
+				<annotation>
+					<documentation>parser name, default parser name=target class name</documentation>
+				</annotation>
+			</attribute>
+			<attribute name="class" type="string" use="required"></attribute>
+			<attribute name="trim" type="boolean" default="true">
+				<annotation>
+					<documentation>should parser after trims, top2 priority </documentation>
+				</annotation>
+			</attribute>
+		</complexType>
+	</element>
+	
+	<element name="parse">
+		<complexType>
+			<attribute name="from" type="string" use="optional"></attribute>
+			<attribute name="to" type="string" use="optional"></attribute>
+			<attribute name="field" type="string" use="required"></attribute>
+		</complexType>
+	</element>
+</schema>
